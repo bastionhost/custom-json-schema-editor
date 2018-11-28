@@ -1,12 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {render} from 'react-dom';
+import 'antd/dist/antd.css'
+const option = {};
+require('json-schema-editor-visual/dist/main.css');
+const schemaEditor = require("json-schema-editor-visual/dist/main.js");
+const SchemaEditor = schemaEditor(option);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const data = document.getElementById('id_data').getAttribute('data-value');
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+render(
+    <SchemaEditor
+        data={data}
+        onChange={e => {
+            document.getElementById('id_data').setAttribute('data-value', e);
+            console.log(e);
+        }}
+    />,
+    document.getElementById('root')
+);
